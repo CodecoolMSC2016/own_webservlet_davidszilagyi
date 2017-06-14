@@ -3,6 +3,7 @@ package src.handler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.reflections.Reflections;
+import src.annotation.RouteMethod;
 import src.annotation.WebRoute;
 
 import java.io.IOException;
@@ -20,21 +21,22 @@ public class MainHandler implements HttpHandler {
     public void handle(HttpExchange t) throws IOException {
         Reflections ref = new Reflections("src.routes");
         Set<Class<?>> annotated = ref.getTypesAnnotatedWith(WebRoute.class);
-
-        for(Class<?> cls: annotated) {
+        for (Class<?> cls : annotated) {
             Annotation annotation = cls.getAnnotation(WebRoute.class);
-            if(annotation instanceof WebRoute && ((WebRoute)(annotation)).path().equals(t.getRequestURI().getPath())) {
-                try {
-                    Method method = cls.getMethod("handle", HttpExchange.class);
-                    method.invoke(cls.newInstance(), t);
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
+            if (annotation instanceof WebRoute && ((WebRoute) (annotation)).path().equals(t.getRequestURI().getPath())) {
+                Method[] methods = cls.getMethods();
+                for(Method method: methods) {
+                    if(method.getAnnotation(RouteMethod.class).method().equals(t.getRequestMethod())) {
+                        try {
+                            method.invoke(cls.newInstance(), t);
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
                 break;
             }
