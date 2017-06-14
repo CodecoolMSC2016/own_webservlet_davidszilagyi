@@ -1,15 +1,15 @@
 package src.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Created by David Szilagyi on 2017. 06. 13..
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target(value = {ElementType.TYPE, ElementType.METHOD})
+@Inherited
+@Documented
 public @interface WebRoute {
-    String path() default "/";
+    String path() default "";
+    String method() default "";
 }

@@ -3,7 +3,6 @@ package src.handler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.reflections.Reflections;
-import src.annotation.RouteMethod;
 import src.annotation.WebRoute;
 
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class MainHandler implements HttpHandler {
             if (annotation instanceof WebRoute && ((WebRoute) (annotation)).path().equals(t.getRequestURI().getPath())) {
                 Method[] methods = cls.getMethods();
                 for(Method method: methods) {
-                    if(method.getAnnotation(RouteMethod.class).method().equals(t.getRequestMethod())) {
+                    if(method.getAnnotation(WebRoute.class).method().equals(t.getRequestMethod())) {
                         try {
                             method.invoke(cls.newInstance(), t);
                         } catch (IllegalAccessException e) {

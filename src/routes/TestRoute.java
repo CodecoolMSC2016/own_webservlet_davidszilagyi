@@ -1,6 +1,5 @@
 package src.routes;
 
-import src.annotation.RouteMethod;
 import src.annotation.WebRoute;
 import com.sun.net.httpserver.HttpExchange;
 
@@ -13,7 +12,7 @@ import java.io.OutputStream;
 @WebRoute(path = "/test")
 public class TestRoute implements MainRoute {
 
-    @RouteMethod(method = "GET")
+    @WebRoute(method = "GET")
     public void handleGET(HttpExchange t) throws IOException {
         String response = "\nGET method invoked on \"/test\" path";
         t.sendResponseHeaders(200, response.length());
@@ -22,7 +21,7 @@ public class TestRoute implements MainRoute {
         os.close();
     }
 
-    @RouteMethod(method = "POST")
+    @WebRoute(method = "POST")
     public void handlePOST(HttpExchange t) throws IOException {
         String response = "\nPOST method invoked on \"/test\" path";
         t.sendResponseHeaders(200, response.length());
@@ -31,7 +30,7 @@ public class TestRoute implements MainRoute {
         os.close();
     }
 
-    @RouteMethod(method = "PUT")
+    @WebRoute(method = "PUT")
     public void handlePUT(HttpExchange t) throws IOException {
         String response = "\nPUT method invoked on \"/test\" path";
         t.sendResponseHeaders(200, response.length());
@@ -40,7 +39,7 @@ public class TestRoute implements MainRoute {
         os.close();
     }
 
-    @RouteMethod(method = "DELETE")
+    @WebRoute(method = "DELETE")
     public void handleDELETE(HttpExchange t) throws IOException {
         String response = "\nDELETE method invoked on \"/test\" path";
         t.sendResponseHeaders(200, response.length());
