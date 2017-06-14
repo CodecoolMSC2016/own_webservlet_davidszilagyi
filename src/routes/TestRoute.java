@@ -11,7 +11,7 @@ import java.io.OutputStream;
  * Created by David Szilagyi on 2017. 06. 13..
  */
 @WebRoute(path = "/test")
-public class TestRoute {
+public class TestRoute implements MainRoute {
 
     @RouteMethod(method = "GET")
     public void handleGET(HttpExchange t) throws IOException {
