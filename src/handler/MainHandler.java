@@ -41,7 +41,7 @@ public class MainHandler implements HttpHandler {
                 break;
             }
         }
-        String response = "This is the main route";
+        String response = "\nThis is the main route";
         t.sendResponseHeaders(200, response.length());
         OutputStream os = t.getResponseBody();
         os.write(response.getBytes());
