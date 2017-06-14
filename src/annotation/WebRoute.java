@@ -7,8 +7,6 @@ import java.lang.annotation.*;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {ElementType.TYPE, ElementType.METHOD})
-@Inherited
-@Documented
 public @interface WebRoute {
     String path() default "";
     String method() default "";
