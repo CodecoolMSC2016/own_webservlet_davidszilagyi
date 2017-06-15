@@ -10,7 +10,7 @@ import java.io.OutputStream;
  * Created by David Szilagyi on 2017. 06. 13..
  */
 @WebRoute(path = "/user")
-public class UserRoute implements MainRoute {
+public class UserRoute extends MainRoute {
 
     @WebRoute(method = "GET")
     public void handleGET(HttpExchange t) throws IOException {
